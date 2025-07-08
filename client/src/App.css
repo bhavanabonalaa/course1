@@ -1,0 +1,151 @@
+/* === Global Styles === */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #f0f2f5;
+  color: #333;
+  overflow-x: hidden;
+}
+
+.container {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* === Card Styles === */
+.card {
+  background-color: #ffcbcb;
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  
+  width:650px;
+  max-width: 100%;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
+}
+
+/* === Button Styling === */
+button,
+.btn {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button:hover,
+.btn:hover {
+  background-color: #0056b3;
+  transform: scale(1.02);
+}
+
+/* === Inputs and Selects === */
+input,
+select,
+textarea {
+  width: 100%;
+  padding: 30px;
+  margin-top: 10px;
+  margin-bottom: 18px;
+  border: 1px solid #ced4da;
+  border-radius: 6px;
+  font-size: 12px;
+  transition: border-color 0.3s;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.15);
+}
+
+/* === Headings === */
+h1, h2, h3 {
+  color: #1f3c88;
+  margin-bottom: 20px;
+  font-weight: 700;
+}
+
+/* === Navigation Bar === */
+nav.navbar {
+  background: linear-gradient(90deg, #2e86de, #4a69bd);
+  padding: 14px 28px;
+  color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.nav-head {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: white;
+  text-decoration: none;
+}
+
+.navbar-nav .nav-link {
+  color: white !important;
+  margin-left: 15px;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover {
+  color: #ffdd59 !important;
+}
+
+/* === Welcome Section === */
+.welcome-container {
+  min-height: 85vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 50px 20px;
+}
+
+.welcome-text {
+  font-size: 4rem;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 800;
+  font-style: italic;
+  color: #1f3c88;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 30px 40px;
+  border-radius: 20px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* === App Container === */
+.app-container {
+  width: 100%;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  transition: background-image 0.4s ease-in-out;
+  background-size: cover;
+  background-position: center;
+}
+
+/* === Responsive Media Queries === */
+@media (max-width: 768px) {
+  .welcome-text {
+    font-size: 2.8rem;
+    padding: 20px;
+  }
+
+  .navbar-nav .nav-link {
+    margin-left: 10px;
+    font-size: 0.95rem;
+  }
+}
+

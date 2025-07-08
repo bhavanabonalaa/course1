@@ -1,0 +1,39 @@
+/* 4-color gradient navbar background */
+.gradient-navbar {
+  background: linear-gradient(90deg, #1e3c72, #2a5298, #6dd5ed, #2193b0);
+  color: white;
+}
+
+.navbar .nav-link {
+  color: white;
+  font-weight: 500;
+  margin-left: 15px;
+}
+
+.navbar .nav-link:hover {
+  text-decoration: underline;
+  color: #f1f1f1;
+}
+
+.navbar-brand {
+  font-weight: bold;
+  font-size: 100px;
+}
+.nav-item{
+    font-size: 50px;
+    margin-right:50px;
+}
+.nav-head{
+    font-size: 9.5rem;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+    font-style:italic;
+}
+
+.head{
+  font-size:8.5rem;
+  font-weight: bold;
+  text-decoration: none;
+  color:white;
+}
