@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API = axios.create({ baseURL: 'https://course-selection-teacher-assignment.onrender.com/api' });
+const API = axios.create({ baseURL: 'https://course-selection-teacher-assignment-gwsn.onrender.com/api' });
 
 API.interceptors.request.use((req) => {
   const token = localStorage.getItem('token');
