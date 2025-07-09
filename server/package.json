@@ -7,8 +7,7 @@
     "start": "node server.js"
   },
 
-   "proxy":
-    "https://course-selection-teacher-assignment.onrender.com",
+   
 
   "keywords": [],
   "author": "",
