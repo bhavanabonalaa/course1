@@ -4,7 +4,7 @@ const TeacherSchema = new mongoose.Schema({
   name: String,
   background: String,
   ratings: [Number],
-  projects: [String],
+  research: [String],
   patents: [String],
 });
 
