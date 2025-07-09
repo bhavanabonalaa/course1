@@ -11,10 +11,6 @@ A full-stack web application that allows university students to select *4 theory
 A full-stack web application that allows university students to select *4 theory* and *2 lab* courses each semester, assigning a teacher to each course. The platform provides secure login/register functionality, detailed teacher profiles, course filtering, feedback submission, and toast notifications for better user experience.
 
 ---
-
-
----
-
 ## 📦 Features
 
 ✅ Student Registration & Login  
