@@ -7,7 +7,8 @@ const app = express();
 connectDB();
 app.use(cors(
     {
-        origin:["http://localhost:3000","https://courseelection.netlify.app"],
+        origin:"https://courseelection.netlify.app",
+        methods:["GET", "POST" ,"PUT", "DELETE"],
         credentials:true,
     }
 ));
