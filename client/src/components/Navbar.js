@@ -1,14 +1,10 @@
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import './Navbar.css'; // Create this file next
 
 export default function Navbar() {
-  const navigate = useNavigate();
-  const isLoggedIn = !! localStorage.getItem('token');
-  const handleLogout= ()=>{
-    localStorage.removeItem('token');
-    navigate('/login');
-  }
+ 
+  
   return (
     <nav className="navbar navbar-expand-lg navbar-dark gradient-navbar px-4">
       <Link to="/" className="nav-head" id="head">Course Selection</Link>

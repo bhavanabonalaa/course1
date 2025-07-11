@@ -22,7 +22,7 @@ function AppWrapper() {
     '/courses': 'bg-courses.jpg',
     '/feedback': 'bg-feedback.jpg'
   };
-
+   
   const backgroundImage = backgrounds[location.pathname] || 'bg-home.jpg';
 
   return (
@@ -47,6 +47,7 @@ function AppWrapper() {
 
       <Routes>
         <Route path="/register" element={<Register />} />
+        
         <Route path="/login" element={<Login />} />
         <Route path="/courses" element={<PrivateRoute><CourseSelection /></PrivateRoute>} />
         <Route path="/feedback" element={<PrivateRoute><Feedback /></PrivateRoute>} />
