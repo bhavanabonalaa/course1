@@ -17,6 +17,16 @@ app.use(cors({
 
 app.use(express.json());
 
+// Health check route
+app.get("/api/health", (req, res) => {
+  const mongoose = require("mongoose");
+  res.json({ 
+    status: "ok", 
+    db: mongoose.connection.readyState === 1 ? "connected" : "disconnected",
+    env: process.env.MONGO_URI ? "MONGO_URI set" : "MONGO_URI missing"
+  });
+});
+
 // Routes
 app.use("/api/auth", require("./routes/authRoutes"));
 app.use("/api/courses", require("./routes/courseRoutes"));
