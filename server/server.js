@@ -4,7 +4,6 @@ const cors = require("cors");
 require("dotenv").config();
 
 const app = express();
-connectDB();
 
 // CORS - allow Vercel frontend and local dev
 app.use(cors({
@@ -16,6 +15,12 @@ app.use(cors({
 }));
 
 app.use(express.json());
+
+// ✅ Connect DB on every request (required for Vercel serverless)
+app.use(async (req, res, next) => {
+  await connectDB();
+  next();
+});
 
 // Health check route
 app.get("/api/health", (req, res) => {
