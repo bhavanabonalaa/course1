@@ -8,7 +8,6 @@ export default function CourseSelection() {
   const [courses, setCourses] = useState([]);
   const [teachers, setTeachers] = useState([]);
   const [selected, setSelected] = useState({ theory: [], lab: [] });
-  const [loaded, setLoaded] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -18,7 +17,6 @@ export default function CourseSelection() {
     ]).then(([coursesRes, teachersRes]) => {
       setCourses(coursesRes.data);
       setTeachers(teachersRes.data);
-      setTimeout(() => setLoaded(true), 100);
     });
   }, []);
 
