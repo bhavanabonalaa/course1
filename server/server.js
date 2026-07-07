@@ -22,6 +22,11 @@ app.use(async (req, res, next) => {
   next();
 });
 
+// Root route - for Railway healthcheck
+app.get("/", (req, res) => {
+  res.json({ status: "ok", message: "Course Selection API running" });
+});
+
 // Health check route
 app.get("/api/health", (req, res) => {
   const mongoose = require("mongoose");
@@ -41,8 +46,7 @@ app.use("/api/feedback", require("./routes/feedbackRoutes"));
 // Export for Vercel serverless
 module.exports = app;
 
-// Run locally
-if (require.main === module) {
-  const PORT = process.env.PORT || 5000;
-  app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-}
+// Start server (for Railway / local)
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, "0.0.0.0", () => console.log(`Server running on port ${PORT}`));
+
