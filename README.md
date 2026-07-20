@@ -6,7 +6,7 @@ A full-stack web application that allows university students to select *4 theory
 
 ## 🚀 Demo
 
-📺 [Watch Demo Video](https://drive.google.com/file/d/1yezV_NEQPnT6b6iRqSqmtg533jbWDOh6/view?usp=sharing)  
+📺 [Watch Demo Video](https://stupendous-eclair-14fb8e.netlify.app/) 
 
 A full-stack web application that allows university students to select *4 theory* and *2 lab* courses each semester, assigning a teacher to each course. The platform provides secure login/register functionality, detailed teacher profiles, course filtering, feedback submission, and toast notifications for better user experience.
 
