@@ -10,22 +10,43 @@ export default function Register() {
 
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
+  const [showSuccessPopup, setShowSuccessPopup] = useState(false);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     try {
       await API.post('/auth/register', form);
-      toast.success('🎉 Registered successfully!');
-      navigate('/login');
+      // Show custom popup instead of just toast
+      setShowSuccessPopup(true);
+      
+      // Delay navigation for animation
+      setTimeout(() => {
+        navigate('/login');
+      }, 2500);
+      
     } catch (err) {
       toast.error(err.response?.data?.message || 'Registration failed');
-    } finally {
       setLoading(false);
-    }
+    } 
   };
 
   return (
     <div className="page-wrapper">
+      {/* Success Popup Modal */}
+      {showSuccessPopup && (
+        <div className="success-popup-overlay animate-fade-in-fast">
+          <div className="success-popup-card animate-scale-up-bounce">
+            <div className="success-popup-icon-wrapper animate-spin-success">
+              <span className="success-popup-icon">✅</span>
+            </div>
+            <h2 className="success-popup-title">Registration Successful!</h2>
+            <p className="success-popup-text">We're redirecting you to login...</p>
+            <div className="success-popup-loader"></div>
+          </div>
+        </div>
+      )}
+
       {/* Floating particles */}
       <div className="particles">
         <div className="particle particle-1"></div>

@@ -30,7 +30,7 @@ function AppWrapper() {
   return (
     <div
       className="app-container"
-      style={{
+      style={location.pathname === '/' ? {} : {
         backgroundImage: `linear-gradient(135deg, rgba(10, 15, 30, 0.85), rgba(20, 30, 80, 0.75)), url(${backgroundImage})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
@@ -41,24 +41,37 @@ function AppWrapper() {
       <Navbar />
 
       {location.pathname === '/' && (
-        <div className="welcome-container">
-          <div className="welcome-card">
-            <h1 className="welcome-title">
-              Welcome to
-            </h1>
-            <h2 className="welcome-subtitle">
-              Course Selection & Teacher Assignment
-            </h2>
-            <p className="welcome-description">
-              Choose your courses, pick your teachers, and shape your academic journey.
-            </p>
-            <div className="welcome-features">
-              <div className="feature-badge">📚 Select Courses</div>
-              <div className="feature-badge">👨‍🏫 Choose Teachers</div>
-              <div className="feature-badge">⭐ Give Feedback</div>
+        <>
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="background-video"
+          >
+            <source src="https://assets.mixkit.co/videos/preview/mixkit-set-of-books-in-a-library-reading-room-42646-large.mp4" type="video/mp4" />
+          </video>
+          <div className="video-overlay"></div>
+          
+          <div className="welcome-container">
+            <div className="welcome-card">
+              <h1 className="welcome-title">
+                Welcome to
+              </h1>
+              <h2 className="welcome-subtitle">
+                Course Selection & Teacher Assignment
+              </h2>
+              <p className="welcome-description">
+                Choose your courses, pick your teachers, and shape your academic journey.
+              </p>
+              <div className="welcome-features">
+                <div className="feature-badge">📚 Select Courses</div>
+                <div className="feature-badge">👨‍🏫 Choose Teachers</div>
+                <div className="feature-badge">⭐ Give Feedback</div>
+              </div>
             </div>
           </div>
-        </div>
+        </>
       )}
 
       <Routes>
