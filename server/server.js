@@ -5,11 +5,12 @@ require("dotenv").config();
 
 const app = express();
 
-// CORS - allow Vercel frontend and local dev
+// CORS - allow frontend URLs
 app.use(cors({
   origin: [
     "https://course1-sage.vercel.app",
-    "http://localhost:3000"
+    "http://localhost:3000",
+    "https://stupendous-eclair-14fb8e.netlify.app"
   ],
   credentials: true
 }));
