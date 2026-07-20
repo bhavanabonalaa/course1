@@ -12,4 +12,4 @@ services:
         value: course-selection
       - key: PORT
         value: 5000
-    healthCheckPath: /api/auth
+    healthCheckPath: /
