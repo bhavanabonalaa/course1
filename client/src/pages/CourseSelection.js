@@ -12,17 +12,21 @@ export default function CourseSelection() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    Promise.all([
+    Promise.allSettled([
       API.get('/courses'),
       API.get('/teachers'),
-      API.get('/courses/selected')
+      API.get('/courses/selections')   // ✅ correct route
     ]).then(([coursesRes, teachersRes, selectedRes]) => {
-      setCourses(coursesRes.data);
-      setTeachers(teachersRes.data);
+      // Load courses and teachers regardless
+      if (coursesRes.status === 'fulfilled') setCourses(coursesRes.value.data);
+      if (teachersRes.status === 'fulfilled') setTeachers(teachersRes.value.data);
+
       // Check if user already has submitted selections
-      const existing = selectedRes.data;
-      if (existing && existing.theory && existing.theory.length > 0) {
-        setAlreadySelected(true);
+      if (selectedRes.status === 'fulfilled') {
+        const existing = selectedRes.value.data;
+        if (existing && existing.theory && existing.theory.length > 0) {
+          setAlreadySelected(true);
+        }
       }
     });
   }, []);
