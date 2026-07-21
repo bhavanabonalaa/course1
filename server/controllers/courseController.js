@@ -23,6 +23,16 @@ exports.selectCourses = async (req, res) => {
   }
 
   try {
+    // ✅ Check if user already submitted selections
+    const existingUser = await User.findById(userId);
+    if (
+      existingUser.selectedCourses &&
+      existingUser.selectedCourses.theory &&
+      existingUser.selectedCourses.theory.length > 0
+    ) {
+      return res.status(409).json({ msg: "You have already submitted your course selection. You cannot select again." });
+    }
+
     await User.findByIdAndUpdate(userId, {
       selectedCourses: {
         theory,

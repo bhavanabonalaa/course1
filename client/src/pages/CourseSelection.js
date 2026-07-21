@@ -8,15 +8,22 @@ export default function CourseSelection() {
   const [courses, setCourses] = useState([]);
   const [teachers, setTeachers] = useState([]);
   const [selected, setSelected] = useState({ theory: [], lab: [] });
+  const [alreadySelected, setAlreadySelected] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
     Promise.all([
       API.get('/courses'),
-      API.get('/teachers')
-    ]).then(([coursesRes, teachersRes]) => {
+      API.get('/teachers'),
+      API.get('/courses/selected')
+    ]).then(([coursesRes, teachersRes, selectedRes]) => {
       setCourses(coursesRes.data);
       setTeachers(teachersRes.data);
+      // Check if user already has submitted selections
+      const existing = selectedRes.data;
+      if (existing && existing.theory && existing.theory.length > 0) {
+        setAlreadySelected(true);
+      }
     });
   }, []);
 
@@ -56,7 +63,13 @@ export default function CourseSelection() {
       toast.success('🎉 Selection submitted!');
       navigate('/feedback');
     } catch (err) {
-      toast.error('Error submitting selection.');
+      const msg = err.response?.data?.msg || 'Error submitting selection.';
+      if (err.response?.status === 409) {
+        setAlreadySelected(true);
+        toast.error('⚠️ ' + msg);
+      } else {
+        toast.error(msg);
+      }
     }
   };
 
@@ -65,6 +78,28 @@ export default function CourseSelection() {
 
   return (
     <div className="page-wrapper course-page">
+      {/* Already Selected Overlay */}
+      {alreadySelected && (
+        <div className="already-selected-overlay animate-fade-in-fast">
+          <div className="already-selected-card animate-scale-up-bounce">
+            <div className="already-selected-icon">🎓</div>
+            <h2 className="already-selected-title">Courses Already Submitted!</h2>
+            <p className="already-selected-text">
+              You have already selected your courses and teachers.<br />
+              You <strong>cannot</strong> change your selection once submitted.
+            </p>
+            <div className="already-selected-actions">
+              <button className="btn-view-selections" onClick={() => navigate('/my-selections')}>
+                📋 View My Selections
+              </button>
+              <button className="btn-go-feedback" onClick={() => navigate('/feedback')}>
+                ⭐ Give Feedback
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Animated background orbs */}
       <div className="bg-orbs">
         <div className="orb orb-1"></div>
