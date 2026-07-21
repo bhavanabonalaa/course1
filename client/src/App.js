@@ -15,14 +15,14 @@ import PrivateRoute from './components/PrivateRoute';
 function AppWrapper() {
   const location = useLocation();
 
-  // Beautiful Unsplash background images for each page
+  // Beautiful Pexels background images for each page
   const backgrounds = {
-    '/': 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=1920&q=80',
-    '/register': 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=1920&q=80',
-    '/login': 'https://images.unsplash.com/photo-1497032628192-86f99bcd76bc?w=1920&q=80',
-    '/courses': 'https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=1920&q=80',
-    '/feedback': 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=1920&q=80',
-    '/my-selections': 'https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=1920&q=80'
+    '/': 'https://images.pexels.com/photos/256395/pexels-photo-256395.jpeg?auto=compress&cs=tinysrgb&w=1920',
+    '/register': 'https://images.pexels.com/photos/3184360/pexels-photo-3184360.jpeg?auto=compress&cs=tinysrgb&w=1920',
+    '/login': 'https://images.pexels.com/photos/1181271/pexels-photo-1181271.jpeg?auto=compress&cs=tinysrgb&w=1920',
+    '/courses': 'https://images.pexels.com/photos/1438072/pexels-photo-1438072.jpeg?auto=compress&cs=tinysrgb&w=1920',
+    '/feedback': 'https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=1920',
+    '/my-selections': 'https://images.pexels.com/photos/1181345/pexels-photo-1181345.jpeg?auto=compress&cs=tinysrgb&w=1920'
   };
 
   const backgroundImage = backgrounds[location.pathname] || backgrounds['/'];
@@ -30,8 +30,11 @@ function AppWrapper() {
   return (
     <div
       className="app-container"
-      style={location.pathname === '/' ? {} : {
-        backgroundImage: `linear-gradient(135deg, rgba(10, 15, 30, 0.85), rgba(20, 30, 80, 0.75)), url(${backgroundImage})`,
+      style={location.pathname === '/' ? {
+        backgroundColor: '#0a0f1e',
+        minHeight: '100vh'
+      } : {
+        backgroundImage: `linear-gradient(135deg, rgba(10, 15, 30, 0.82), rgba(20, 30, 80, 0.72)), url(${backgroundImage})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundAttachment: 'fixed',
@@ -49,7 +52,8 @@ function AppWrapper() {
             playsInline
             className="background-video"
           >
-            <source src="https://assets.mixkit.co/videos/preview/mixkit-set-of-books-in-a-library-reading-room-42646-large.mp4" type="video/mp4" />
+            <source src="https://assets.mixkit.co/videos/preview/mixkit-students-studying-together-in-college-4494-large.mp4" type="video/mp4" />
+            <source src="https://assets.mixkit.co/videos/preview/mixkit-girl-in-neon-sign-1232-large.mp4" type="video/mp4" />
           </video>
           <div className="video-overlay"></div>
           
