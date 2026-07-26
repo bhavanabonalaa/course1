@@ -2955,3 +2955,281 @@ h1, h2, h3, h4 {
   background-size: 300% 300%;
   animation: gradientBorderSpin 2s ease infinite;
 }
+
+/* ========== EXTRA PREMIUM FEEDBACK CSS ========== */
+
+/* Floating glow orbs behind the card */
+.feedback-page::before {
+  content: '';
+  position: fixed;
+  top: 10%;
+  left: 5%;
+  width: 320px;
+  height: 320px;
+  background: radial-gradient(circle, rgba(102, 126, 234, 0.18) 0%, transparent 70%);
+  border-radius: 50%;
+  animation: floatOrb1 8s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.feedback-page::after {
+  content: '';
+  position: fixed;
+  bottom: 10%;
+  right: 5%;
+  width: 280px;
+  height: 280px;
+  background: radial-gradient(circle, rgba(240, 147, 251, 0.15) 0%, transparent 70%);
+  border-radius: 50%;
+  animation: floatOrb2 10s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@keyframes floatOrb1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%       { transform: translate(30px, -20px) scale(1.1); }
+  66%       { transform: translate(-15px, 25px) scale(0.95); }
+}
+
+@keyframes floatOrb2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  40%       { transform: translate(-25px, 15px) scale(1.08); }
+  70%       { transform: translate(20px, -30px) scale(0.92); }
+}
+
+/* Shimmer on card header */
+.feedback-header::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -60%;
+  width: 40%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.04), transparent);
+  animation: headerShimmer 4s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.feedback-header {
+  position: relative;
+  overflow: hidden;
+}
+
+@keyframes headerShimmer {
+  0%   { left: -60%; }
+  100% { left: 130%; }
+}
+
+/* Glowing top border stripe on card */
+.feedback-card {
+  border-top: 2px solid transparent;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.06), rgba(255,255,255,0.06)),
+    linear-gradient(90deg, #667eea, #f093fb, #38ef7d, #667eea);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+  background-size: 100% 100%, 300% 100%;
+  animation: topBorderFlow 5s linear infinite;
+}
+
+@keyframes topBorderFlow {
+  0%   { background-position: 0% 0%, 0% 0%; }
+  100% { background-position: 0% 0%, 300% 0%; }
+}
+
+/* Neon input field highlight on focus */
+.fb-field {
+  position: relative;
+}
+
+.fb-field::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background: linear-gradient(90deg, #667eea, #f093fb);
+  border-radius: 2px;
+  transition: width 0.4s ease;
+  pointer-events: none;
+}
+
+.fb-field:focus-within::after {
+  width: 100%;
+}
+
+/* Enhanced dropdown trigger shine */
+.fb-dropdown-trigger::after {
+  content: '';
+  position: absolute;
+  top: 0; right: 0;
+  width: 0;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.06));
+  transition: width 0.3s ease;
+  border-radius: 0 14px 14px 0;
+  pointer-events: none;
+}
+
+.fb-dropdown-trigger {
+  position: relative;
+  overflow: hidden;
+}
+
+.fb-dropdown-trigger:hover::after {
+  width: 40%;
+}
+
+/* Tag badge on selected teacher in trigger */
+.fb-dropdown-trigger.selected .fb-dropdown-value::before {
+  content: '✓ ';
+  color: #38ef7d;
+  font-weight: 800;
+}
+
+/* Star row: label showing star count as pill badge */
+.fb-star-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: linear-gradient(135deg, rgba(245,158,11,0.2), rgba(251,191,36,0.1));
+  border: 1px solid rgba(245,158,11,0.4);
+  border-radius: 20px;
+  padding: 2px 10px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #fbbf24;
+  margin-left: 8px;
+  animation: badgeFadeIn 0.3s ease both;
+}
+
+@keyframes badgeFadeIn {
+  from { opacity: 0; transform: scale(0.7) translateX(-6px); }
+  to   { opacity: 1; transform: scale(1) translateX(0); }
+}
+
+/* Textarea typing indicator glow */
+.fb-textarea:not(:placeholder-shown) {
+  border-color: rgba(167, 139, 250, 0.4);
+  background: rgba(102, 126, 234, 0.07);
+}
+
+/* Character counter color changes */
+.fb-textarea-counter {
+  text-align: right;
+  font-size: 11px;
+  color: rgba(255,255,255,0.25);
+  margin-top: 6px;
+  transition: color 0.3s ease;
+  font-weight: 500;
+}
+
+.fb-textarea-counter.warn {
+  color: #f59e0b;
+}
+
+.fb-textarea-counter.danger {
+  color: #ef4444;
+  font-weight: 700;
+}
+
+/* Submit button ripple effect */
+.fb-submit-btn::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 0;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(255,255,255,0.15);
+  border-radius: 50%;
+  transition: width 0.4s ease, height 0.4s ease, opacity 0.4s ease;
+  opacity: 0;
+}
+
+.fb-submit-btn:active::after {
+  width: 300px;
+  height: 300px;
+  opacity: 0;
+  transition: 0s;
+}
+
+/* Form section separator */
+.fb-section-sep {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+  margin: 8px 0 20px;
+}
+
+/* Dropdown item category tag */
+.fb-dropdown-item-tag {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: rgba(102, 126, 234, 0.8);
+  background: rgba(102, 126, 234, 0.12);
+  padding: 2px 7px;
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+
+/* Success screen confetti dots */
+.fb-confetti {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  animation: confettiFall 1s ease forwards;
+}
+
+@keyframes confettiFall {
+  0%   { transform: translateY(-20px) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(60px) rotate(360deg); opacity: 0; }
+}
+
+/* Hover shimmer on dropdown items */
+.fb-dropdown-item::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.04), transparent);
+  transition: left 0.4s ease;
+  pointer-events: none;
+}
+
+.fb-dropdown-item {
+  position: relative;
+  overflow: hidden;
+}
+
+.fb-dropdown-item:hover::before {
+  left: 130%;
+}
+
+/* Scroll-to-top fade for long dropdowns */
+.fb-dropdown-menu::after {
+  content: '';
+  position: sticky;
+  bottom: 0;
+  display: block;
+  height: 30px;
+  background: linear-gradient(to top, rgba(20,25,50,0.95), transparent);
+  pointer-events: none;
+}
+
+/* Overall form entrance animation */
+.feedback-form {
+  animation: formSlideIn 0.5s ease 0.2s both;
+}
+
+@keyframes formSlideIn {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}

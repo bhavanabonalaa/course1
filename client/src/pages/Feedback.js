@@ -145,12 +145,16 @@ export default function Feedback() {
                 <label className="fb-label">
                   <span className="fb-label-icon">⭐</span>
                   Rating
-                  {(hoveredStar || form.rating) > 0 && (
-                    <span className="fb-rating-label">
-                      — {starLabels[hoveredStar || form.rating]}
+                  {form.rating > 0 && (
+                    <span className="fb-star-badge">
+                      {form.rating} / 5 — {starLabels[form.rating]}
                     </span>
                   )}
+                  {hoveredStar > 0 && !form.rating && (
+                    <span className="fb-rating-label">— {starLabels[hoveredStar]}</span>
+                  )}
                 </label>
+                <div className="fb-section-sep"></div>
                 <div className="fb-stars">
                   {[1, 2, 3, 4, 5].map(star => (
                     <button
@@ -173,15 +177,21 @@ export default function Feedback() {
                   <span className="fb-label-icon">💭</span>
                   Your Feedback
                 </label>
+                <div className="fb-section-sep"></div>
                 <textarea
                   name="message"
                   className="fb-textarea"
                   placeholder="Share your thoughts about the teacher..."
                   rows="4"
+                  maxLength={500}
                   value={form.message}
                   onChange={(e) => setForm(prev => ({ ...prev, message: e.target.value }))}
                 />
-                <div className="fb-textarea-counter">{form.message.length} / 500 characters</div>
+                <div className={`fb-textarea-counter ${
+                  form.message.length > 450 ? 'danger' : form.message.length > 350 ? 'warn' : ''
+                }`}>
+                  {form.message.length} / 500 characters
+                </div>
               </div>
 
               {/* Submit Button */}
