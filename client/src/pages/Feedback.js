@@ -28,13 +28,18 @@ export default function Feedback() {
   }, []);
 
   const handleTeacherSelect = (teacher) => {
-    setForm({ ...form, teacherId: teacher._id });
+    // Calculate average rating from teacher's ratings array
+    const avgRating = teacher.ratings && teacher.ratings.length > 0
+      ? Math.round(teacher.ratings.reduce((a, b) => a + b, 0) / teacher.ratings.length)
+      : 0;
+    // Use functional update to avoid stale closure
+    setForm(prev => ({ ...prev, teacherId: teacher._id, rating: avgRating }));
     setSelectedTeacherName(teacher.name);
     setDropdownOpen(false);
   };
 
   const handleStarClick = (star) => {
-    setForm({ ...form, rating: star });
+    setForm(prev => ({ ...prev, rating: star }));
   };
 
   const handleSubmit = async (e) => {
@@ -115,7 +120,7 @@ export default function Feedback() {
                         key={teacher._id}
                         className={`fb-dropdown-item ${form.teacherId === teacher._id ? 'active' : ''}`}
                         style={{ animationDelay: `${index * 0.05}s` }}
-                        onClick={() => handleTeacherSelect(teacher)}
+                        onMouseDown={(e) => { e.preventDefault(); handleTeacherSelect(teacher); }}
                       >
                         <span className="fb-dropdown-item-avatar">
                           {teacher.name.charAt(0).toUpperCase()}
