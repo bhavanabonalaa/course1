@@ -3233,3 +3233,67 @@ h1, h2, h3, h4 {
   from { opacity: 0; transform: translateY(16px); }
   to   { opacity: 1; transform: translateY(0); }
 }
+
+/* ========== NATIVE STYLED SELECT ========== */
+.fb-select-wrapper {
+  position: relative;
+  display: block;
+}
+
+.fb-native-select {
+  width: 100%;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1.5px solid rgba(255, 255, 255, 0.18);
+  border-radius: 14px;
+  padding: 14px 48px 14px 18px;
+  color: #fff;
+  font-size: 15px;
+  font-family: inherit;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+}
+
+.fb-native-select option {
+  background: #1a1f3a;
+  color: #fff;
+  padding: 10px;
+  font-size: 15px;
+}
+
+.fb-native-select:focus {
+  border-color: #667eea;
+  background: rgba(102, 126, 234, 0.12);
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2),
+              0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+.fb-native-select:hover {
+  border-color: rgba(102, 126, 234, 0.5);
+  background: rgba(102, 126, 234, 0.08);
+}
+
+.fb-native-select:valid:not(:focus) {
+  border-color: rgba(102, 126, 234, 0.4);
+  color: #fff;
+}
+
+.fb-select-arrow {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: rgba(255,255,255,0.5);
+  font-size: 20px;
+  pointer-events: none;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.fb-select-wrapper:focus-within .fb-select-arrow {
+  color: #667eea;
+  transform: translateY(-50%) rotate(180deg);
+}

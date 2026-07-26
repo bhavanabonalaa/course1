@@ -96,47 +96,34 @@ export default function Feedback() {
           {!submitted && (
             <form onSubmit={handleSubmit} className="feedback-form">
 
-              {/* Custom Teacher Dropdown */}
+              {/* Native Styled Teacher Select */}
               <div className="fb-field animate-slide-up-1">
-                <label className="fb-label">
+                <label className="fb-label" htmlFor="teacherSelect">
                   <span className="fb-label-icon">👨‍🏫</span>
                   Select Teacher
-                </label>
-                <div className="fb-dropdown-wrapper" ref={dropdownRef}>
-                  <button
-                    type="button"
-                    className={`fb-dropdown-trigger ${dropdownOpen ? 'open' : ''} ${form.teacherId ? 'selected' : ''}`}
-                    onClick={() => setDropdownOpen(!dropdownOpen)}
-                  >
-                    <span className="fb-dropdown-value">
-                      {selectedTeacherName || 'Choose your teacher...'}
+                  {selectedTeacherName && (
+                    <span className="fb-star-badge" style={{background:'rgba(102,126,234,0.2)',borderColor:'rgba(102,126,234,0.5)',color:'#a78bfa'}}>
+                      ✓ {selectedTeacherName}
                     </span>
-                    <span className={`fb-dropdown-arrow ${dropdownOpen ? 'rotated' : ''}`}>▾</span>
-                  </button>
-
-                  <div className={`fb-dropdown-menu ${dropdownOpen ? 'open' : ''}`}>
-                    <div className="fb-dropdown-search-hint">Select a teacher</div>
-                    {teachers.map((teacher, index) => (
-                      <div
-                        key={teacher._id}
-                        className={`fb-dropdown-item ${form.teacherId === teacher._id ? 'active' : ''}`}
-                        style={{ animationDelay: `${index * 0.05}s` }}
-                        onMouseDown={(e) => { e.preventDefault(); handleTeacherSelect(teacher); }}
-                        onClick={() => handleTeacherSelect(teacher)}
-                      >
-                        <span className="fb-dropdown-item-avatar">
-                          {teacher.name.charAt(0).toUpperCase()}
-                        </span>
-                        <div className="fb-dropdown-item-info">
-                          <span className="fb-dropdown-item-name">{teacher.name}</span>
-                          <span className="fb-dropdown-item-bg">{teacher.background?.slice(0, 40)}...</span>
-                        </div>
-                        {form.teacherId === teacher._id && (
-                          <span className="fb-dropdown-check">✓</span>
-                        )}
-                      </div>
+                  )}
+                </label>
+                <div className="fb-select-wrapper">
+                  <select
+                    id="teacherSelect"
+                    className="fb-native-select"
+                    value={form.teacherId}
+                    onChange={(e) => {
+                      const teacher = teachers.find(t => t._id === e.target.value);
+                      if (teacher) handleTeacherSelect(teacher);
+                    }}
+                    required
+                  >
+                    <option value="">👨‍🏫 Choose your teacher...</option>
+                    {teachers.map(t => (
+                      <option key={t._id} value={t._id}>{t.name}</option>
                     ))}
-                  </div>
+                  </select>
+                  <span className="fb-select-arrow">▾</span>
                 </div>
               </div>
 
