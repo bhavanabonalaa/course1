@@ -90,6 +90,7 @@ export default function Feedback() {
             <p className="feedback-subtitle animate-fade-in-delay">
               {submitted ? 'Your feedback has been recorded 🎉' : 'Share your experience with your teacher'}
             </p>
+            <div className="feedback-divider"></div>
           </div>
 
           {!submitted && (
@@ -177,8 +178,9 @@ export default function Feedback() {
                   placeholder="Share your thoughts about the teacher..."
                   rows="4"
                   value={form.message}
-                  onChange={(e) => setForm({ ...form, message: e.target.value })}
+                  onChange={(e) => setForm(prev => ({ ...prev, message: e.target.value }))}
                 />
+                <div className="fb-textarea-counter">{form.message.length} / 500 characters</div>
               </div>
 
               {/* Submit Button */}

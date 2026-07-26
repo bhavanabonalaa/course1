@@ -2501,3 +2501,247 @@ h1, h2, h3, h4 {
   from { opacity: 0; transform: translateY(20px); }
   to   { opacity: 1; transform: translateY(0); }
 }
+
+/* ========== ENHANCED FEEDBACK FORM CSS ========== */
+
+/* Animated gradient border on the card */
+.feedback-card {
+  position: relative;
+  isolation: isolate;
+}
+
+.feedback-card::before {
+  content: '';
+  position: absolute;
+  inset: -1.5px;
+  border-radius: 29px;
+  background: linear-gradient(135deg, #667eea, #764ba2, #f093fb, #667eea);
+  background-size: 300% 300%;
+  animation: gradientBorderSpin 5s ease infinite;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.feedback-card:hover::before {
+  opacity: 1;
+}
+
+@keyframes gradientBorderSpin {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Glowing dots on card top */
+.feedback-card::after {
+  content: '';
+  position: absolute;
+  top: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 200px;
+  height: 80px;
+  background: radial-gradient(ellipse, rgba(102, 126, 234, 0.35) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Icon wrapper pulse ring */
+.feedback-icon-wrapper::after {
+  content: '';
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 2px solid rgba(102, 126, 234, 0.4);
+  animation: pulseRing 2s ease-out infinite;
+}
+
+.feedback-icon-wrapper {
+  position: relative;
+}
+
+@keyframes pulseRing {
+  0%   { transform: scale(1);   opacity: 0.8; }
+  80%  { transform: scale(1.35); opacity: 0; }
+  100% { transform: scale(1.35); opacity: 0; }
+}
+
+/* Glowing label */
+.fb-label {
+  text-shadow: 0 0 12px rgba(102, 126, 234, 0.3);
+  transition: text-shadow 0.3s ease, color 0.3s ease;
+}
+
+.fb-field:focus-within .fb-label {
+  color: #a78bfa;
+  text-shadow: 0 0 16px rgba(167, 139, 250, 0.5);
+}
+
+/* Dropdown trigger glow on hover */
+.fb-dropdown-trigger:hover {
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2),
+              0 8px 24px rgba(102, 126, 234, 0.15);
+}
+
+/* Dropdown menu backdrop glow */
+.fb-dropdown-menu.open {
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7),
+              0 0 0 1px rgba(102, 126, 234, 0.3),
+              inset 0 1px 0 rgba(255,255,255,0.06);
+}
+
+/* Item hover glow */
+.fb-dropdown-item:hover {
+  background: rgba(102, 126, 234, 0.18);
+  transform: translateX(6px);
+  box-shadow: inset 3px 0 0 #667eea;
+}
+
+/* Avatar shimmer */
+.fb-dropdown-item-avatar {
+  background: linear-gradient(135deg, #667eea, #f093fb);
+  animation: avatarHue 4s linear infinite;
+}
+
+.fb-dropdown-item:hover .fb-dropdown-item-avatar {
+  box-shadow: 0 0 14px rgba(102, 126, 234, 0.6);
+}
+
+@keyframes avatarHue {
+  0%   { filter: hue-rotate(0deg); }
+  100% { filter: hue-rotate(360deg); }
+}
+
+/* Stars mega glow */
+.fb-stars {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 14px;
+  padding: 12px 16px;
+  display: flex;
+  gap: 6px;
+  width: fit-content;
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+.fb-stars:hover {
+  background: rgba(245, 166, 35, 0.06);
+  border-color: rgba(245, 166, 35, 0.2);
+}
+
+.fb-star {
+  filter: drop-shadow(0 0 0px transparent);
+  transition: color 0.2s ease,
+              transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
+              filter 0.2s ease;
+}
+
+.fb-star:hover,
+.fb-star.active {
+  filter: drop-shadow(0 0 8px rgba(245, 166, 35, 0.8));
+}
+
+/* Textarea - floating glow line at bottom */
+.fb-textarea-wrapper {
+  position: relative;
+}
+
+.fb-textarea:focus {
+  border-color: #a78bfa;
+  box-shadow: 0 0 0 3px rgba(167, 139, 250, 0.15),
+              0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+/* Char counter hint inside textarea wrapper */
+.fb-textarea-counter {
+  text-align: right;
+  font-size: 11px;
+  color: rgba(255,255,255,0.25);
+  margin-top: 6px;
+  transition: color 0.3s ease;
+}
+
+/* Submit button rainbow shimmer */
+.fb-submit-btn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+  background-size: 200% 200%;
+  animation: btnGradient 4s ease infinite;
+}
+
+@keyframes btnGradient {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.fb-submit-btn:hover:not(:disabled) {
+  animation: btnGradientFast 1.5s ease infinite;
+  box-shadow: 0 12px 40px rgba(102, 126, 234, 0.6),
+              0 0 80px rgba(240, 147, 251, 0.2);
+}
+
+@keyframes btnGradientFast {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Success star burst */
+.fb-success-star {
+  display: inline-block;
+  animation: starBurst 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+@keyframes starBurst {
+  0%   { transform: scale(0) rotate(-45deg); opacity: 0; }
+  60%  { transform: scale(1.4) rotate(10deg); }
+  100% { transform: scale(1) rotate(0); opacity: 1; }
+}
+
+.fb-success-body {
+  padding: 20px 0 8px;
+}
+
+.fb-success-msg {
+  font-size: 15px;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.6);
+  margin-top: 16px;
+  padding: 0 8px;
+}
+
+/* Divider between header and form */
+.feedback-divider {
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, #667eea, #f093fb);
+  border-radius: 4px;
+  margin: 0 auto 28px;
+  animation: dividerExpand 0.6s ease 0.3s both;
+}
+
+@keyframes dividerExpand {
+  from { width: 0; opacity: 0; }
+  to   { width: 60px; opacity: 1; }
+}
+
+/* Floating particles specific to feedback */
+.feedback-page .particle-1 { background: rgba(102, 126, 234, 0.6); }
+.feedback-page .particle-2 { background: rgba(240, 147, 251, 0.5); }
+.feedback-page .particle-3 { background: rgba(245, 166, 35, 0.4); }
+.feedback-page .particle-4 { background: rgba(102, 126, 234, 0.4); }
+.feedback-page .particle-5 { background: rgba(56, 239, 125, 0.3); }
+
+/* Success glow on card */
+.feedback-card.success-glow {
+  box-shadow: 0 0 60px rgba(56, 239, 125, 0.25),
+              0 30px 60px rgba(0, 0, 0, 0.4);
+}
+
+.feedback-card.success-glow::before {
+  opacity: 1;
+  background: linear-gradient(135deg, #11998e, #38ef7d, #11998e);
+  background-size: 300% 300%;
+  animation: gradientBorderSpin 2s ease infinite;
+}
