@@ -16,15 +16,15 @@ export default function Feedback() {
     API.get('/teachers').then(res => setTeachers(res.data));
   }, []);
 
-  // Close dropdown when clicking outside
+  // Close dropdown when clicking outside — use 'click' so item onClick fires first
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
         setDropdownOpen(false);
       }
     };
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    document.addEventListener('click', handleClickOutside);
+    return () => document.removeEventListener('click', handleClickOutside);
   }, []);
 
   const handleTeacherSelect = (teacher) => {
@@ -122,6 +122,7 @@ export default function Feedback() {
                         className={`fb-dropdown-item ${form.teacherId === teacher._id ? 'active' : ''}`}
                         style={{ animationDelay: `${index * 0.05}s` }}
                         onMouseDown={(e) => { e.preventDefault(); handleTeacherSelect(teacher); }}
+                        onClick={() => handleTeacherSelect(teacher)}
                       >
                         <span className="fb-dropdown-item-avatar">
                           {teacher.name.charAt(0).toUpperCase()}
