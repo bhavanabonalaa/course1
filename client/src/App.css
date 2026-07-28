@@ -3297,3 +3297,202 @@ h1, h2, h3, h4 {
   color: #667eea;
   transform: translateY(-50%) rotate(180deg);
 }
+
+/* ========== ULTRA PREMIUM FEEDBACK FORM v3 ========== */
+
+/* Glassmorphism card upgrade */
+.feedback-card {
+  background: rgba(255, 255, 255, 0.04) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.05),
+    0 20px 40px rgba(0,0,0,0.5),
+    0 0 80px rgba(102,126,234,0.08),
+    inset 0 1px 0 rgba(255,255,255,0.08) !important;
+}
+
+/* Neon title glow */
+.feedback-title {
+  background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 50%, #d9a7c7 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-size: 28px !important;
+  letter-spacing: -0.5px;
+}
+
+/* Pulsing icon glow */
+.feedback-icon-wrapper {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%) !important;
+  box-shadow:
+    0 0 0 4px rgba(102,126,234,0.15),
+    0 0 30px rgba(102,126,234,0.35),
+    0 10px 30px rgba(0,0,0,0.4) !important;
+}
+
+/* Label style upgrade */
+.fb-label {
+  font-size: 13px !important;
+  text-transform: uppercase;
+  letter-spacing: 1px !important;
+  color: rgba(255,255,255,0.65) !important;
+  font-weight: 700 !important;
+}
+
+.fb-label-icon {
+  font-size: 14px !important;
+}
+
+/* Native select upgrade */
+.fb-native-select {
+  background: rgba(255,255,255,0.05) !important;
+  border: 1.5px solid rgba(255,255,255,0.1) !important;
+  border-radius: 12px !important;
+  color: rgba(255,255,255,0.9) !important;
+  font-size: 14.5px !important;
+  padding: 13px 44px 13px 16px !important;
+  letter-spacing: 0.2px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.fb-native-select:focus {
+  border-color: rgba(102, 126, 234, 0.7) !important;
+  background: rgba(102, 126, 234, 0.08) !important;
+  box-shadow:
+    0 0 0 3px rgba(102,126,234,0.15),
+    0 4px 20px rgba(0,0,0,0.3) !important;
+}
+
+/* Stars container upgrade */
+.fb-stars {
+  background: rgba(255,255,255,0.03) !important;
+  border: 1px solid rgba(255,255,255,0.06) !important;
+  border-radius: 16px !important;
+  padding: 14px 20px !important;
+  gap: 8px !important;
+  transition: background 0.3s ease, border-color 0.3s ease !important;
+}
+
+.fb-stars:hover {
+  background: rgba(245,158,11,0.05) !important;
+  border-color: rgba(245,158,11,0.15) !important;
+}
+
+/* Individual star upgrade */
+.fb-star {
+  font-size: 36px !important;
+  color: rgba(255,255,255,0.12) !important;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.4);
+}
+
+.fb-star.active {
+  color: #fbbf24 !important;
+  filter: drop-shadow(0 0 12px rgba(251,191,36,0.9)) !important;
+  transform: scale(1.15) !important;
+}
+
+.fb-star:hover {
+  color: #fde68a !important;
+  filter: drop-shadow(0 0 14px rgba(253,230,138,0.95)) !important;
+  transform: scale(1.3) translateY(-5px) !important;
+}
+
+/* Textarea upgrade */
+.fb-textarea {
+  background: rgba(255,255,255,0.04) !important;
+  border: 1.5px solid rgba(255,255,255,0.08) !important;
+  border-radius: 12px !important;
+  color: rgba(255,255,255,0.9) !important;
+  font-size: 14.5px !important;
+  line-height: 1.7 !important;
+  transition: all 0.3s cubic-bezier(0.4,0,0.2,1) !important;
+}
+
+.fb-textarea::placeholder {
+  color: rgba(255,255,255,0.2) !important;
+  font-style: italic;
+}
+
+.fb-textarea:focus {
+  border-color: rgba(167,139,250,0.6) !important;
+  background: rgba(167,139,250,0.06) !important;
+  box-shadow:
+    0 0 0 3px rgba(167,139,250,0.12),
+    0 6px 24px rgba(0,0,0,0.25) !important;
+}
+
+/* Submit button ultra upgrade */
+.fb-submit-btn {
+  background: linear-gradient(135deg, #6366f1, #8b5cf6, #a855f7) !important;
+  border-radius: 12px !important;
+  padding: 15px !important;
+  font-size: 15px !important;
+  letter-spacing: 0.5px !important;
+  font-weight: 700 !important;
+  box-shadow:
+    0 4px 15px rgba(99,102,241,0.4),
+    0 0 30px rgba(139,92,246,0.15),
+    inset 0 1px 0 rgba(255,255,255,0.15) !important;
+  transition: all 0.3s cubic-bezier(0.4,0,0.2,1) !important;
+}
+
+.fb-submit-btn:hover:not(:disabled) {
+  transform: translateY(-3px) !important;
+  box-shadow:
+    0 8px 25px rgba(99,102,241,0.55),
+    0 0 50px rgba(139,92,246,0.25),
+    inset 0 1px 0 rgba(255,255,255,0.2) !important;
+}
+
+.fb-submit-btn:active:not(:disabled) {
+  transform: translateY(-1px) !important;
+}
+
+/* Star badge upgrade */
+.fb-star-badge {
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  padding: 3px 10px !important;
+  border-radius: 20px !important;
+  letter-spacing: 0.4px;
+  animation: badgePop 0.3s cubic-bezier(0.34,1.56,0.64,1) both !important;
+}
+
+@keyframes badgePop {
+  from { opacity:0; transform: scale(0.6); }
+  to   { opacity:1; transform: scale(1); }
+}
+
+/* Section separator upgrade */
+.fb-section-sep {
+  background: linear-gradient(90deg, transparent, rgba(102,126,234,0.25), rgba(240,147,251,0.15), transparent) !important;
+  height: 1.5px !important;
+  margin: 6px 0 14px !important;
+  border-radius: 2px !important;
+}
+
+/* Field spacing */
+.fb-field {
+  margin-bottom: 22px !important;
+}
+
+/* Feedback form max width constraint */
+.feedback-card {
+  max-width: 520px !important;
+  padding: 48px 44px !important;
+}
+
+/* Success state upgrade */
+.fb-success-star {
+  font-size: 36px !important;
+  color: #fbbf24 !important;
+  filter: drop-shadow(0 0 10px rgba(251,191,36,0.7)) !important;
+}
+
+/* Char counter */
+.fb-textarea-counter {
+  font-size: 11.5px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.3px;
+  margin-top: 7px !important;
+}

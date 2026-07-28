@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import API from '../services/api';
 import { toast } from 'react-toastify';
 
@@ -7,24 +7,11 @@ export default function Feedback() {
   const [teachers, setTeachers] = useState([]);
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [dropdownOpen, setDropdownOpen] = useState(false);
   const [hoveredStar, setHoveredStar] = useState(0);
   const [selectedTeacherName, setSelectedTeacherName] = useState('');
-  const dropdownRef = useRef(null);
 
   useEffect(() => {
     API.get('/teachers').then(res => setTeachers(res.data));
-  }, []);
-
-  // Close dropdown when clicking outside — use 'click' so item onClick fires first
-  useEffect(() => {
-    const handleClickOutside = (e) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
-        setDropdownOpen(false);
-      }
-    };
-    document.addEventListener('click', handleClickOutside);
-    return () => document.removeEventListener('click', handleClickOutside);
   }, []);
 
   const handleTeacherSelect = (teacher) => {
