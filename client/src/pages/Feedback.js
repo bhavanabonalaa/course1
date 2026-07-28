@@ -6,25 +6,30 @@ export default function Feedback() {
   const [form, setForm] = useState({ teacherId: '', rating: 0, message: '' });
   const [teachers, setTeachers] = useState([]);
   const [submitted, setSubmitted] = useState(false);
+  const [alreadySubmitted, setAlreadySubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [teachersLoading, setTeachersLoading] = useState(true);
   const [teachersError, setTeachersError] = useState(false);
   const [hoveredStar, setHoveredStar] = useState(0);
   const [selectedTeacherName, setSelectedTeacherName] = useState('');
+  const [statusLoading, setStatusLoading] = useState(true);
+
+  // Check if user already submitted
+  useEffect(() => {
+    API.get('/feedback/status')
+      .then(res => {
+        setAlreadySubmitted(res.data.submitted);
+        setStatusLoading(false);
+      })
+      .catch(() => setStatusLoading(false));
+  }, []);
 
   const loadTeachers = () => {
     setTeachersLoading(true);
     setTeachersError(false);
     API.get('/teachers')
-      .then(res => {
-        setTeachers(res.data);
-        setTeachersLoading(false);
-      })
-      .catch(() => {
-        setTeachersLoading(false);
-        setTeachersError(true);
-        toast.error('Failed to load teachers. Please retry.');
-      });
+      .then(res => { setTeachers(res.data); setTeachersLoading(false); })
+      .catch(() => { setTeachersLoading(false); setTeachersError(true); });
   };
 
   useEffect(() => { loadTeachers(); }, []);
@@ -40,9 +45,7 @@ export default function Feedback() {
     setSelectedTeacherName(teacher.name);
   };
 
-  const handleStarClick = (star) => {
-    setForm(prev => ({ ...prev, rating: star }));
-  };
+  const handleStarClick = (star) => setForm(prev => ({ ...prev, rating: star }));
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -53,20 +56,65 @@ export default function Feedback() {
       await API.post('/feedback', form);
       toast.success('🎉 Feedback submitted!');
       setSubmitted(true);
-      setTimeout(() => {
-        setSubmitted(false);
-        setForm({ teacherId: '', rating: 0, message: '' });
-        setSelectedTeacherName('');
-        setHoveredStar(0);
-      }, 3500);
+      setTimeout(() => setAlreadySubmitted(true), 3500);
     } catch (err) {
-      toast.error('Error submitting feedback. Try again.');
+      if (err.response?.status === 409) {
+        setAlreadySubmitted(true);
+        toast.info('You have already submitted feedback.');
+      } else {
+        toast.error('Error submitting feedback. Try again.');
+      }
     } finally {
       setLoading(false);
     }
   };
 
   const starLabels = ['', 'Poor', 'Fair', 'Good', 'Very Good', 'Excellent'];
+
+  // Status loading spinner
+  if (statusLoading) {
+    return (
+      <div className="page-wrapper feedback-page">
+        <div className="container d-flex justify-content-center align-items-center" style={{ minHeight: '90vh' }}>
+          <div className="feedback-card animate-card-entrance" style={{ textAlign: 'center', padding: '60px 40px' }}>
+            <span className="fb-spinner" style={{ width: 40, height: 40, borderWidth: 4 }}></span>
+            <p style={{ color: 'rgba(255,255,255,0.5)', marginTop: 20 }}>Checking your status...</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Already submitted screen
+  if (alreadySubmitted && !submitted) {
+    return (
+      <div className="page-wrapper feedback-page">
+        <div className="particles">
+          <div className="particle particle-1"></div>
+          <div className="particle particle-2"></div>
+          <div className="particle particle-3"></div>
+        </div>
+        <div className="container d-flex justify-content-center align-items-center" style={{ minHeight: '90vh' }}>
+          <div className="feedback-card animate-card-entrance fb-already-card">
+            <div className="fb-already-icon">✅</div>
+            <h2 className="feedback-title" style={{ marginTop: 16 }}>Already Submitted!</h2>
+            <p className="feedback-subtitle" style={{ marginTop: 10 }}>
+              You have already submitted your feedback.<br />
+              Thank you for your valuable response! 🎉
+            </p>
+            <div className="fb-already-stars">
+              {[1,2,3,4,5].map(s => (
+                <span key={s} className="fb-success-star" style={{ animationDelay: `${s * 0.1}s` }}>★</span>
+              ))}
+            </div>
+            <p className="fb-already-note">
+              Only one feedback submission is allowed per user to ensure fair ratings.
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="page-wrapper feedback-page">
@@ -108,7 +156,6 @@ export default function Feedback() {
                     <span className="fb-badge-purple">✓ {selectedTeacherName}</span>
                   )}
                 </label>
-
                 {teachersLoading ? (
                   <div className="fb-loading-row">
                     <span className="fb-spinner"></span>
@@ -154,8 +201,7 @@ export default function Feedback() {
                 <div className="fb-stars">
                   {[1,2,3,4,5].map(star => (
                     <button
-                      key={star}
-                      type="button"
+                      key={star} type="button"
                       className={`fb-star ${star <= (hoveredStar || form.rating) ? 'active' : ''}`}
                       onMouseEnter={() => setHoveredStar(star)}
                       onMouseLeave={() => setHoveredStar(0)}
@@ -175,32 +221,25 @@ export default function Feedback() {
                 <textarea
                   className="fb-textarea"
                   placeholder="Share your thoughts about the teacher..."
-                  rows="4"
-                  maxLength={500}
+                  rows="4" maxLength={500}
                   value={form.message}
                   onChange={(e) => setForm(prev => ({ ...prev, message: e.target.value }))}
                 />
                 <div className={`fb-textarea-counter ${
                   form.message.length > 450 ? 'danger' : form.message.length > 350 ? 'warn' : ''
-                }`}>
-                  {form.message.length} / 500 characters
-                </div>
+                }`}>{form.message.length} / 500 characters</div>
               </div>
 
               {/* Submit */}
-              <button
-                type="submit"
+              <button type="submit"
                 className={`fb-submit-btn animate-slide-up-4 ${loading ? 'loading' : ''}`}
                 disabled={loading}
               >
                 <span className="fb-submit-bg"></span>
                 <span className="fb-submit-text">
-                  {loading
-                    ? <><span className="fb-spinner"></span> Submitting...</>
-                    : <>Send Feedback →</>}
+                  {loading ? <><span className="fb-spinner"></span> Submitting...</> : <>Send Feedback →</>}
                 </span>
               </button>
-
             </form>
           )}
 
@@ -215,7 +254,6 @@ export default function Feedback() {
               <p className="fb-success-msg">Your rating has been saved and will help others make better choices!</p>
             </div>
           )}
-
         </div>
       </div>
     </div>

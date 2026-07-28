@@ -3683,3 +3683,49 @@ h1, h2, h3, h4 {
   -webkit-text-fill-color: transparent !important;
   background-clip: text !important;
 }
+
+/* ========== FEEDBACK ALREADY SUBMITTED SCREEN ========== */
+.fb-already-card {
+  text-align: center;
+  padding: 60px 44px !important;
+  background: linear-gradient(
+    145deg,
+    rgba(10, 20, 60, 0.95) 0%,
+    rgba(15, 30, 80, 0.92) 100%
+  ) !important;
+  border-color: rgba(56, 239, 125, 0.25) !important;
+  box-shadow:
+    0 0 0 1px rgba(56, 239, 125, 0.08),
+    0 25px 60px rgba(0, 10, 50, 0.7),
+    0 0 80px rgba(56, 239, 125, 0.08) !important;
+}
+
+.fb-already-icon {
+  font-size: 72px;
+  animation: alreadyIconPop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  filter: drop-shadow(0 0 20px rgba(56, 239, 125, 0.5));
+}
+
+@keyframes alreadyIconPop {
+  0%   { transform: scale(0) rotate(-30deg); opacity: 0; }
+  60%  { transform: scale(1.2) rotate(8deg); }
+  100% { transform: scale(1) rotate(0); opacity: 1; }
+}
+
+.fb-already-stars {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin: 24px 0 16px;
+}
+
+.fb-already-note {
+  font-size: 13px;
+  color: rgba(255,255,255,0.35);
+  margin-top: 20px;
+  line-height: 1.6;
+  padding: 12px 16px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 12px;
+}
