@@ -22,7 +22,6 @@ export default function Feedback() {
     // Use functional update to avoid stale closure
     setForm(prev => ({ ...prev, teacherId: teacher._id, rating: avgRating }));
     setSelectedTeacherName(teacher.name);
-    setDropdownOpen(false);
   };
 
   const handleStarClick = (star) => {
