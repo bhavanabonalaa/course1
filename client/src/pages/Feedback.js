@@ -7,20 +7,36 @@ export default function Feedback() {
   const [teachers, setTeachers] = useState([]);
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [teachersLoading, setTeachersLoading] = useState(true);
+  const [teachersError, setTeachersError] = useState(false);
   const [hoveredStar, setHoveredStar] = useState(0);
   const [selectedTeacherName, setSelectedTeacherName] = useState('');
 
-  useEffect(() => {
-    API.get('/teachers').then(res => setTeachers(res.data));
-  }, []);
+  const loadTeachers = () => {
+    setTeachersLoading(true);
+    setTeachersError(false);
+    API.get('/teachers')
+      .then(res => {
+        setTeachers(res.data);
+        setTeachersLoading(false);
+      })
+      .catch(() => {
+        setTeachersLoading(false);
+        setTeachersError(true);
+        toast.error('Failed to load teachers. Please retry.');
+      });
+  };
 
-  const handleTeacherSelect = (teacher) => {
-    // Calculate average rating from teacher's ratings array
+  useEffect(() => { loadTeachers(); }, []);
+
+  const handleTeacherChange = (e) => {
+    const id = e.target.value;
+    const teacher = teachers.find(t => t._id === id);
+    if (!teacher) return;
     const avgRating = teacher.ratings && teacher.ratings.length > 0
       ? Math.round(teacher.ratings.reduce((a, b) => a + b, 0) / teacher.ratings.length)
       : 0;
-    // Use functional update to avoid stale closure
-    setForm(prev => ({ ...prev, teacherId: teacher._id, rating: avgRating }));
+    setForm(prev => ({ ...prev, teacherId: id, rating: avgRating }));
     setSelectedTeacherName(teacher.name);
   };
 
@@ -31,7 +47,7 @@ export default function Feedback() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!form.teacherId) { toast.error('Please select a teacher.'); return; }
-    if (!form.rating) { toast.error('Please give a star rating.'); return; }
+    if (!form.rating)    { toast.error('Please give a star rating.'); return; }
     setLoading(true);
     try {
       await API.post('/feedback', form);
@@ -42,9 +58,9 @@ export default function Feedback() {
         setForm({ teacherId: '', rating: 0, message: '' });
         setSelectedTeacherName('');
         setHoveredStar(0);
-      }, 3000);
+      }, 3500);
     } catch (err) {
-      toast.error('Error submitting feedback.');
+      toast.error('Error submitting feedback. Try again.');
     } finally {
       setLoading(false);
     }
@@ -79,38 +95,47 @@ export default function Feedback() {
             <div className="feedback-divider"></div>
           </div>
 
+          {/* Form */}
           {!submitted && (
             <form onSubmit={handleSubmit} className="feedback-form">
 
-              {/* Native Styled Teacher Select */}
+              {/* Teacher Select */}
               <div className="fb-field animate-slide-up-1">
                 <label className="fb-label" htmlFor="teacherSelect">
                   <span className="fb-label-icon">👨‍🏫</span>
                   Select Teacher
                   {selectedTeacherName && (
-                    <span className="fb-star-badge" style={{background:'rgba(102,126,234,0.2)',borderColor:'rgba(102,126,234,0.5)',color:'#a78bfa'}}>
-                      ✓ {selectedTeacherName}
-                    </span>
+                    <span className="fb-badge-purple">✓ {selectedTeacherName}</span>
                   )}
                 </label>
-                <div className="fb-select-wrapper">
-                  <select
-                    id="teacherSelect"
-                    className="fb-native-select"
-                    value={form.teacherId}
-                    onChange={(e) => {
-                      const teacher = teachers.find(t => t._id === e.target.value);
-                      if (teacher) handleTeacherSelect(teacher);
-                    }}
-                    required
-                  >
-                    <option value="">👨‍🏫 Choose your teacher...</option>
-                    {teachers.map(t => (
-                      <option key={t._id} value={t._id}>{t.name}</option>
-                    ))}
-                  </select>
-                  <span className="fb-select-arrow">▾</span>
-                </div>
+
+                {teachersLoading ? (
+                  <div className="fb-loading-row">
+                    <span className="fb-spinner"></span>
+                    <span style={{color:'rgba(255,255,255,0.5)', fontSize:'14px'}}>Loading teachers...</span>
+                  </div>
+                ) : teachersError ? (
+                  <div className="fb-error-row">
+                    <span>⚠️ Could not load teachers.</span>
+                    <button type="button" className="fb-retry-btn" onClick={loadTeachers}>Retry</button>
+                  </div>
+                ) : (
+                  <div className="fb-select-wrapper">
+                    <select
+                      id="teacherSelect"
+                      className="fb-native-select"
+                      value={form.teacherId}
+                      onChange={handleTeacherChange}
+                      required
+                    >
+                      <option value="">— Choose a teacher —</option>
+                      {teachers.map(t => (
+                        <option key={t._id} value={t._id}>{t.name}</option>
+                      ))}
+                    </select>
+                    <span className="fb-select-arrow">▾</span>
+                  </div>
+                )}
               </div>
 
               {/* Star Rating */}
@@ -119,9 +144,7 @@ export default function Feedback() {
                   <span className="fb-label-icon">⭐</span>
                   Rating
                   {form.rating > 0 && (
-                    <span className="fb-star-badge">
-                      {form.rating} / 5 — {starLabels[form.rating]}
-                    </span>
+                    <span className="fb-badge-gold">{form.rating}/5 — {starLabels[form.rating]}</span>
                   )}
                   {hoveredStar > 0 && !form.rating && (
                     <span className="fb-rating-label">— {starLabels[hoveredStar]}</span>
@@ -129,7 +152,7 @@ export default function Feedback() {
                 </label>
                 <div className="fb-section-sep"></div>
                 <div className="fb-stars">
-                  {[1, 2, 3, 4, 5].map(star => (
+                  {[1,2,3,4,5].map(star => (
                     <button
                       key={star}
                       type="button"
@@ -137,9 +160,7 @@ export default function Feedback() {
                       onMouseEnter={() => setHoveredStar(star)}
                       onMouseLeave={() => setHoveredStar(0)}
                       onClick={() => handleStarClick(star)}
-                    >
-                      ★
-                    </button>
+                    >★</button>
                   ))}
                 </div>
               </div>
@@ -152,7 +173,6 @@ export default function Feedback() {
                 </label>
                 <div className="fb-section-sep"></div>
                 <textarea
-                  name="message"
                   className="fb-textarea"
                   placeholder="Share your thoughts about the teacher..."
                   rows="4"
@@ -167,7 +187,7 @@ export default function Feedback() {
                 </div>
               </div>
 
-              {/* Submit Button */}
+              {/* Submit */}
               <button
                 type="submit"
                 className={`fb-submit-btn animate-slide-up-4 ${loading ? 'loading' : ''}`}
@@ -175,17 +195,16 @@ export default function Feedback() {
               >
                 <span className="fb-submit-bg"></span>
                 <span className="fb-submit-text">
-                  {loading ? (
-                    <><span className="fb-spinner"></span> Submitting...</>
-                  ) : (
-                    <>Send Feedback →</>
-                  )}
+                  {loading
+                    ? <><span className="fb-spinner"></span> Submitting...</>
+                    : <>Send Feedback →</>}
                 </span>
               </button>
 
             </form>
           )}
 
+          {/* Success */}
           {submitted && (
             <div className="fb-success-body animate-fade-in-fast">
               <div className="fb-success-stars">

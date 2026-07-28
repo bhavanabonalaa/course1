@@ -3496,3 +3496,78 @@ h1, h2, h3, h4 {
   letter-spacing: 0.3px;
   margin-top: 7px !important;
 }
+
+/* ---- Feedback Loading / Error / Badges ---- */
+.fb-loading-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 18px;
+  background: rgba(255,255,255,0.04);
+  border: 1.5px solid rgba(255,255,255,0.08);
+  border-radius: 12px;
+  color: rgba(255,255,255,0.5);
+}
+
+.fb-error-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  background: rgba(239,68,68,0.08);
+  border: 1.5px solid rgba(239,68,68,0.25);
+  border-radius: 12px;
+  color: rgba(255,255,255,0.7);
+  font-size: 14px;
+}
+
+.fb-retry-btn {
+  background: rgba(239,68,68,0.2);
+  border: 1px solid rgba(239,68,68,0.4);
+  border-radius: 8px;
+  color: #fca5a5;
+  padding: 5px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.fb-retry-btn:hover {
+  background: rgba(239,68,68,0.35);
+  transform: scale(1.04);
+}
+
+.fb-badge-purple {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(102,126,234,0.18);
+  border: 1px solid rgba(102,126,234,0.45);
+  border-radius: 20px;
+  padding: 2px 10px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #a78bfa;
+  margin-left: 8px;
+  animation: badgePop 0.3s cubic-bezier(0.34,1.56,0.64,1) both;
+  text-transform: none;
+  letter-spacing: 0.2px;
+}
+
+.fb-badge-gold {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(245,158,11,0.15);
+  border: 1px solid rgba(245,158,11,0.35);
+  border-radius: 20px;
+  padding: 2px 10px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fbbf24;
+  margin-left: 8px;
+  animation: badgePop 0.3s cubic-bezier(0.34,1.56,0.64,1) both;
+  text-transform: none;
+  letter-spacing: 0.2px;
+}
