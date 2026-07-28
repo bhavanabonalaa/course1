@@ -49,5 +49,13 @@ module.exports = app;
 
 // Start server (for Railway / local)
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, "0.0.0.0", () => console.log(`Server running on port ${PORT}`));
+app.listen(PORT, "0.0.0.0", () => {
+  console.log(`✅ Server running on port ${PORT}`);
+  if (!process.env.MONGO_URI || process.env.MONGO_URI.includes('127.0.0.1')) {
+    console.warn('⚠️  WARNING: MONGO_URI is missing or using localhost. Set Atlas URI in Railway variables!');
+  }
+});
 
+process.on('unhandledRejection', (err) => {
+  console.error('Unhandled Rejection:', err.message);
+});
