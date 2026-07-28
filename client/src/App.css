@@ -3571,3 +3571,115 @@ h1, h2, h3, h4 {
   text-transform: none;
   letter-spacing: 0.2px;
 }
+
+/* ========== FEEDBACK CARD - DEEP NAVY BLUE ========== */
+.feedback-card {
+  background: linear-gradient(
+    145deg,
+    rgba(10, 20, 60, 0.92) 0%,
+    rgba(15, 30, 80, 0.88) 50%,
+    rgba(8, 18, 55, 0.95) 100%
+  ) !important;
+  border: 1px solid rgba(100, 149, 237, 0.25) !important;
+  box-shadow:
+    0 0 0 1px rgba(100, 149, 237, 0.08),
+    0 25px 60px rgba(0, 10, 50, 0.7),
+    0 0 120px rgba(30, 80, 200, 0.12),
+    inset 0 1px 0 rgba(150, 190, 255, 0.1),
+    inset 0 -1px 0 rgba(0, 10, 50, 0.5) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+}
+
+/* Blue tinted label text */
+.fb-label {
+  color: rgba(180, 210, 255, 0.75) !important;
+}
+
+/* Blue tinted divider */
+.feedback-divider {
+  background: linear-gradient(90deg, transparent, rgba(100, 149, 237, 0.6), rgba(150, 100, 255, 0.3), transparent) !important;
+}
+
+.fb-section-sep {
+  background: linear-gradient(90deg, transparent, rgba(100, 149, 237, 0.3), transparent) !important;
+}
+
+/* Blue glow on select focus */
+.fb-native-select {
+  background: rgba(10, 30, 80, 0.5) !important;
+  border-color: rgba(100, 149, 237, 0.2) !important;
+}
+
+.fb-native-select:focus {
+  border-color: rgba(100, 149, 237, 0.7) !important;
+  background: rgba(15, 40, 100, 0.6) !important;
+  box-shadow:
+    0 0 0 3px rgba(100, 149, 237, 0.18),
+    0 4px 20px rgba(0, 10, 60, 0.4) !important;
+}
+
+.fb-native-select:hover {
+  border-color: rgba(100, 149, 237, 0.45) !important;
+  background: rgba(12, 35, 90, 0.55) !important;
+}
+
+/* Blue glow on textarea focus */
+.fb-textarea {
+  background: rgba(10, 30, 80, 0.45) !important;
+  border-color: rgba(100, 149, 237, 0.15) !important;
+}
+
+.fb-textarea:focus {
+  border-color: rgba(100, 149, 237, 0.6) !important;
+  background: rgba(15, 40, 100, 0.55) !important;
+  box-shadow:
+    0 0 0 3px rgba(100, 149, 237, 0.15),
+    0 6px 24px rgba(0, 10, 60, 0.35) !important;
+}
+
+/* Star container - blue tint */
+.fb-stars {
+  background: rgba(10, 25, 70, 0.5) !important;
+  border-color: rgba(100, 149, 237, 0.12) !important;
+}
+
+/* Submit button - blue gradient */
+.fb-submit-btn {
+  background: linear-gradient(135deg, #1e3a8a, #2563eb, #3b82f6) !important;
+  box-shadow:
+    0 4px 20px rgba(37, 99, 235, 0.45),
+    0 0 40px rgba(59, 130, 246, 0.15),
+    inset 0 1px 0 rgba(255,255,255,0.15) !important;
+}
+
+.fb-submit-btn:hover:not(:disabled) {
+  background: linear-gradient(135deg, #1d4ed8, #3b82f6, #60a5fa) !important;
+  box-shadow:
+    0 8px 30px rgba(37, 99, 235, 0.6),
+    0 0 60px rgba(59, 130, 246, 0.25),
+    inset 0 1px 0 rgba(255,255,255,0.2) !important;
+  transform: translateY(-3px) !important;
+}
+
+/* Icon glow - blue */
+.feedback-icon-wrapper {
+  background: linear-gradient(135deg, #1e40af, #2563eb, #60a5fa) !important;
+  box-shadow:
+    0 0 0 5px rgba(37, 99, 235, 0.15),
+    0 0 35px rgba(37, 99, 235, 0.4),
+    0 10px 30px rgba(0,0,0,0.4) !important;
+}
+
+/* Card hover glow - blue tinted border */
+.feedback-card::before {
+  background: linear-gradient(135deg, #1e40af, #3b82f6, #60a5fa, #1e40af) !important;
+}
+
+/* Title - blue gradient text */
+.feedback-title {
+  background: linear-gradient(135deg, #bfdbfe 0%, #93c5fd 40%, #ddd6fe 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+}
